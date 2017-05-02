@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="javascripts/Chart.min.js"></script>
+	<script type="text/javascript" src="javascripts/higherhw.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+</head>
+<body>
+	
+	<h1>Benford</h1>
+
+	Choose Dataset:
+   	<select id="mySelect" onclick="render()">
+      <option value="livejournal">livejournal</option>
+      <option value="librarybooks">librarybooks</option>
+      <option value="sunspots">sunspots</option>
+    </select>
+
+	<div id="canvas-holder">
+		<canvas id="chart1" width="400" height="100"></canvas>
+	</div>
+
+	<script>
+
+		render()
+
+		function getOption(){
+			var e = document.getElementById("mySelect");
+			var selectedOp = e.options[e.selectedIndex].text;
+
+			return selectedOp
+		}
+
+		function getData() {
+
+			var data;	
+			var selectedOp = getOption()	
+
+			switch (selectedOp)
+		        {
+		            case 'livejournal': data = toPercentages(livejournal);
+		            
+		            case 'librarybooks': data = toPercentages(librarybooks);
+		            
+		            case 'sunspots': data = toPercentages(sunspots);
+		        }	
+		    console.log(data)
+
+		    return data		
+
+		}
+
+		function render(){
+			var disBen = [30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6]
+
+					var ctx = document.getElementById("chart1");
+
+					var data = {
+						labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+						datasets: [
+							{
+								label: getOption(),
+								data: getData(),
+								backgroundColor: "#76A7FA",
+								borderColor: "#76A7FA",
+								borderWidth: 2
+							},
+							{
+								label: 'Benford',
+								data: disBen,
+								backgroundColor: "#BC5679",
+								borderColor: "#BC5679",
+								borderWidth: 2
+							}
+						]
+					};
+
+					var options = {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero:false
+								}
+							}]
+						}
+					};
+
+					var chart1 = new Chart(ctx, {
+						type: 'bar',
+						data: data,
+						options: options
+					});
+
+		}
+
+		
+	</script>
+
+</body>
+</html>

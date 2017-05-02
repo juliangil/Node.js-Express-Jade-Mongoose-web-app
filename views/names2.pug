@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+	head
+		meta
+		title Surf Names
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js')
+		script(src='http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js')
+		script(src='http://code.jquery.com/jquery-1.8.2.min.js')
+		meta(charset='utf-8')
+
+	body
+		h1 Surf Names
+		
+		.box
+			canvas#lineChart(height='300', width='500')
+		
+
+	script(type='text/javascript').
+			var names = !{JSON.stringify(names)}; 
+			var colors = !{JSON.stringify(colors)}; 
+	script(src='/javascripts/main.js')
