@@ -51,16 +51,21 @@ function isJson(str) {
 /* GET names listing. */
 router.get('/', function(req, res, next) {
 
-  	var input = req.query.name;
-  	Name.findOne({ name: input}, function(err, name){
-    	if(err){
-    		console.log(err);
-    		res.json({ result: null });
-    	}
-    	else if(name == null){
-    		res.json({ result: null });
-    	}
-    	else{
+    if(req.query.nameReq == null || req.query.nameReq == undefined || req.query.nameReq == ""){
+      var input = ""
+    }
+    else
+      var input = req.query.nameReq;
+
+    Name.findOne({ name: input}, function(err, name){
+      if(err){
+        console.log(err);
+        res.json({ result: null });
+      }
+      else if(name == null){
+        //res.json({ result: null });
+      }
+      else{
         
         if(!existName(name['name'])){
           var color = random_rgba();
@@ -71,11 +76,18 @@ router.get('/', function(req, res, next) {
 
         console.log(numberOfNames)
 
-    		res.render('names2',{names: numberOfNames, colors: colors})
-    		//res.json(name);
-    	}
+        res.json({names: numberOfNames, colors: colors})
+        //res.json(name);
+      }
 
   })
+});
+
+router.delete('/', function(req, res, next) {
+  console.log("entra")
+  numberOfNames = []
+  res.json({names: numberOfNames, colors: colors})  	
+
 });
 
 module.exports = router;
