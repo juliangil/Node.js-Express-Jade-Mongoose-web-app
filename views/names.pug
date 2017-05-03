@@ -1,44 +1,19 @@
-doctype html
-html(lang='ja')
-  head
-    meta(charset='UTF-8')
-    title Line Chart Test
-    
-    script(language='JavaScript').
-      <!--
-      
-      function displayLineChart(names) {
-      console.log(names)
-      var data = {
-      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      datasets: [
-      {
-      label: "Prime and Fibonacci",
-      fillColor: "rgba(220,220,220,0.2)",
-      strokeColor: "rgba(220,220,220,1)",
-      pointColor: "rgba(220,220,220,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(220,220,220,1)",
-      data: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-      },
-      {
-      label: "My Second dataset",
-      fillColor: "rgba(151,187,205,0.2)",
-      strokeColor: "rgba(151,187,205,1)",
-      pointColor: "rgba(151,187,205,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(151,187,205,1)",
-      data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-      }
-      ]
-      };
-      var ctx = document.getElementById("lineChart").getContext("2d");
-      var options = { };
-      var lineChart = new Chart(ctx).Line(data, options);
-      }
-      -->
-  body(onload='displayLineChart();')
-    .box
-      canvas#lineChart(height='450', width='800')
+extends layout
+
+block content
+	h1 NameSurfer
+	.row.col-sm-12
+	.col-xs-3
+		.input-group.input-group-lg
+			input#input.form-control(type='text', placeholder='Name', aria-describedby='sizing-addon1')
+		#btnBrowse.btn-group(role='group')
+			button.btn.btn-primary(type='button') Browse
+		#btnClear.btn-group(role='group')
+			button.btn.btn-danger(type='button') Clear
+	.box.col-xs-8
+		canvas#lineChart(height='300', width='500')
+
+	script(type='text/javascript').
+		var names = !{JSON.stringify(names)};
+		var colors = !{JSON.stringify(colors)};
+	script(src='/javascripts/main.js')

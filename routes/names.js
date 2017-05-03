@@ -7,7 +7,7 @@ var colors = []
 
 //define schema
 var nameSchema = new mongoose.Schema({
-	name: {type: String, require: true}, 
+	name: {type: String, require: true},
 	1900: {type: Number, min:0, max:1000},
 	1910: {type: Number, min:0, max:1000},
 	1920: {type: Number, min:0, max:1000},
@@ -63,20 +63,20 @@ router.get('/', function(req, res, next) {
         res.json({ result: null });
       }
       else if(name == null){
-        //res.json({ result: null });
+				res.json(404, "NAME NOT FOUND" );
       }
       else{
-        
+
         if(!existName(name['name'])){
           var color = random_rgba();
-          
+
           colors.push(color)
           numberOfNames.push(name);
         }
 
         console.log(numberOfNames)
 
-        res.json({names: numberOfNames, colors: colors})
+        res.json(200, {names: numberOfNames, colors: colors})
         //res.json(name);
       }
 
@@ -84,9 +84,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.delete('/', function(req, res, next) {
-  console.log("entra")
   numberOfNames = []
-  res.json({names: numberOfNames, colors: colors})  	
+  res.json({names: numberOfNames, colors: colors})
 
 });
 

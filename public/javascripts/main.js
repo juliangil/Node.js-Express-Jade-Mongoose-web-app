@@ -1,4 +1,5 @@
 $(document).ready(() => {
+  render([])
     // set a listener on the textbox
     $('#btnBrowse').on("click", (evt) => {
         let nameReq = $('#input').val();
@@ -10,25 +11,48 @@ $(document).ready(() => {
                 var colors = data.colors
                 render(names, colors)
             })
-            .fail((xhr) => {
-                alert('Problem contacting server');
-                console.log(xhr);
+            .fail((res) => {
+                if(res.status == 404){
+                  console.log(res)
+                  console.log(res.responseText)
+                  alert(res.responseText)
+                }
+
             });
     });
 
     $('#btnClear').on("click", (evt) => {
-        $.delete('/names')
-            .done((data) => {
-                $('#input').val(''); // reset the textbox
-                var names = data.names
-                var colors = data.colors
-                render(names, colors)
-            })
-            .fail((xhr) => {
-                alert('Problem contacting server');
-                console.log(xhr);
-            });
-        
+      $.ajax({
+          url: '/names',
+          type: 'DELETE',
+          data: '',
+          traditional:true,
+          dataType: 'json',
+          success: function(data) {
+            console.log("entra")
+            $('#input').val(''); // reset the textbox
+            var names = data.names
+            var colors = data.colors
+            render(names, colors)
+          },
+          error: function(result){
+            alert('Problem contacting server');
+            console.log(xhr);
+          }
+      });
+
+        // $.delete('/names')
+        //     .done((data) => {
+        //         $('#input').val(''); // reset the textbox
+        //         var names = data.names
+        //         var colors = data.colors
+        //         render(names, colors)
+        //     })
+        //     .fail((xhr) => {
+        //         alert('Problem contacting server');
+        //         console.log(xhr);
+        //     });
+
     });
 });
 
@@ -43,7 +67,7 @@ function render(names, colors){
         for (var j = 0; j < labels.length; j++) {
             if(names[i][labels[j]] == 0)
             names[i][labels[j]] = 1001
-        };        
+        };
     };
 
     for (var i = 0; i < names.length; i++) {
@@ -105,7 +129,7 @@ function render(names, colors){
              },
          }
      }
-     var ctx = document.getElementById("lineChart").getContext("2d"); 
+     var ctx = document.getElementById("lineChart").getContext("2d");
     return line = new Chart.Line(ctx,chartSettings);
 }
 

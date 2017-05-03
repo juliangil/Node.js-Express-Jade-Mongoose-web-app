@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 40px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,7 +8,15 @@ a {
 }
 
 .box{
+  position: inherit;
 	margin: 0 auto;
-	width: 800px;
-	height: 500px;
+	width: 500px;
+}
+
+#btnClear{
+  margin: 10px 10px 0px 0px;
+}
+
+#btnBrowse{
+  margin: 10px 10px 0px 0px;
 }
