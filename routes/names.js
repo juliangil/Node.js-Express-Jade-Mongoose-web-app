@@ -85,7 +85,9 @@ router.get('/', function(req, res, next) {
 
 router.delete('/', function(req, res, next) {
   numberOfNames = []
-  res.json({names: numberOfNames, colors: colors})
+  colors = []
+  numberOfNames.length = 0
+  res.json(200, {names: numberOfNames, colors: colors})
 
 });
 

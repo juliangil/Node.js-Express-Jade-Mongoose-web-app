@@ -31,36 +31,21 @@ $(document).ready(() => {
           success: function(data) {
             console.log("entra")
             $('#input').val(''); // reset the textbox
-            var names = data.names
-            var colors = data.colors
+            var names = []
+            var colors = []
             render(names, colors)
+            window.location.reload(true);
           },
           error: function(result){
             alert('Problem contacting server');
             console.log(xhr);
           }
       });
-
-        // $.delete('/names')
-        //     .done((data) => {
-        //         $('#input').val(''); // reset the textbox
-        //         var names = data.names
-        //         var colors = data.colors
-        //         render(names, colors)
-        //     })
-        //     .fail((xhr) => {
-        //         alert('Problem contacting server');
-        //         console.log(xhr);
-        //     });
-
     });
 });
 
 function render(names, colors){
-    console.log("names render")
-    console.log(names)
     var labels = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000]
-
     var datasets = []
 
     for (var i = 0; i < names.length; i++) {
@@ -81,7 +66,6 @@ function render(names, colors){
         //row['data'] = [10,50,46,9,52,6,10]
 
         datasets.push(row)
-        console.log(datasets)
     };
 
     var chartData = {
@@ -132,57 +116,3 @@ function render(names, colors){
      var ctx = document.getElementById("lineChart").getContext("2d");
     return line = new Chart.Line(ctx,chartSettings);
 }
-
-/*function displayLineChart() {
-
-    var anios = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000]
-    var datasets = []
-
-    for (var i = 0; i < names.length; i++) {
-        var row = [];
-        row['label'] = names[(names.length-1)].name
-        row['fillColor'] = "transparent"
-        row['strokeColor'] = "rgba(220,220,220,1)"
-        row['pointColor'] = "rgba(220,220,220,1)"
-        row['pointStrokeColor'] = "#fff"
-        row['pointHighlightFill'] = "#fff"
-        row['pointHighlightStroke'] = "rgba(220,220,220,1)"
-        //row['data'] = [names[i]['1900'],names[i]['1910'],names[i]['1920'],names[i]['1930'],names[i]['1940'],names[i]['1950'],names[i]['1960'],names[i]['1970'],names[i]['1980'],names[i]['1990'],names[i]['2000'],]
-        row['data'] = [-10,-50,-46,-9,-52,-6,-10]
-
-        datasets.push(row)
-        console.log(datasets)
-    };
-
-    var data = {
-        labels: anios,
-        datasets: datasets
-    };
-
-    var type = {type:'line'}
-    //var ctx = document.getElementById("lineChart").getContext("2d");
-    //var options = {};
-
-    //var lineChart = new Chart(ctx).Line(data, options);
-
-    var ctx = document.getElementById("lineChart");
-
-    var options = {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:false
-                                }
-                            }]
-                        }
-                    };
-
-    var chart1 = new Chart(ctx, {
-
-        data: data,
-        options: options
-    });
-}
-
-displayLineChart()
-*/
